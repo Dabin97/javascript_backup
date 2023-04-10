@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+    <script>
+        //배열 생성
+        let arr = [10,20,true,3.1415,'TEST'];
+        document.write("<h2>배열값 가져오는 방법 - 1</h2>");
+        for(i=0;i<arr.length;i++)
+            document.write(`<p>${arr[i]}</p>`);
+        document.write("<h2>배열값 가져오는 방법 - 2</h2>");
+        for(i in arr) //인덱스 번호가 하나씩 나옴
+        document.write(`<p>${arr[i]}</p>`);
+        for(i of arr) //배열에 저장된 값을 하나씩 뽑음
+        document.write(`<p>${i}</p>`);
+        document.write("<h2>배열값 가져오는 방법 - 3</h2>");
+        arr.forEach(function(val,idx,arr){
+            document.write(`<p>${val}, ${idx} - [${arr}]</p>`);
+        });
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

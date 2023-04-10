@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <style>
+        div {
+            padding:50px;
+            border:1px solid black;
+        }
+        p{
+            border:1px solid blue;
+        }
+    </style>
+    <script>
+       window.onload = () => {
+        let box1 = document.querySelector('#box1');
+        let box2 = document.querySelector('#box2');
+
+        //마우스가 벗어나면 배경색을 빨강으로 지정
+        box1.onmouseout = () => {
+            box1.style.backgroundColor ='red';
+        } //onmouseout은 p태그에 마우스가 올라가면 빨간색으로 바뀜
+        
+        box2.onmouseleave = () => {
+            box2.style.backgroundColor ='red';
+        }//onmouseleave는 p태그 위에 올려도 괜찮다가 아예 박스 밖으로 마우스가 나가면 빨간색으로 바뀜
+         //onmouseleave를 더 많이 씀   
+       }
+    </script>
+</head>
+<body>
+    <h2>onmouseout 일때</h2>
+    <div id="box1">
+        <p><a href="#">링크</a></p>
+        <p><a href="#">링크</a></p>
+        <p><a href="#">링크</a></p>
+    </div>
+    <h2>onmouseleave 일때</h2>
+    <div id="box2">
+        <p><a href="#">링크</a></p>
+        <p><a href="#">링크</a></p>
+        <p><a href="#">링크</a></p>
+    </div>
+</body>
+</html>

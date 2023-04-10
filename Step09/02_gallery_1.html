@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        *{margin: 0px; padding: 0px;}
+
+        div{
+            border: 1px solid black;
+        }
+        .thumnail_container{
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+            position: relative;
+        }
+        .main_img{
+            width: 400px;
+            height: 400px;
+        }
+        .thumnail_bar{
+            width: 400px;
+            margin: 0px auto;
+            overflow: hidden;
+        }
+        .thumnail{
+            width: 720px;
+            font-size: 0px;
+        }
+        .thumnail img{
+            width: 80px;
+            height: 80px;
+        }
+        .left_arrow{
+            position: absolute;
+            bottom: 6px;
+            left: 0px;
+        }
+        .right_arrow{
+            position: absolute;
+            bottom: 6px;
+            right: 0px;
+        }
+    </style>
+    <script>
+        $(function(){
+            let index = 0; //이미지 갯수?
+            let thumnailBarWidth = $('.thumnail_bar').width(); //400px
+            let thumnailWidth = $('.thumnail').width(); //720px
+
+
+            $('.left_arrow').click(function(){
+                if(thumnailBarWidth + index * 80 == thumnailWidth) //왼쪽으로 땡긴 길이 + 화면에 보이는 남은 길이 == 총 길이 720과 동일하면 멈추게 한다.
+                    return;     //끊기
+                index++;        //만약 아니라면 index 증가
+                $('.thumnail').animate({
+                    'margin-left':`-${index*80}px` //계속 왼쪽으로 -80px하도록 작동
+                },500);
+            });
+            
+            $('.right_arrow').click(function(){
+                if(thumnailBarWidth + index * 80 == 0) //왼쪽으로 땡긴 길이가 0일때 멈추기
+                    return;  
+                index--;
+                $('.thumnail').animate({
+                    'margin-left':`-${index*80}px` 
+                },500);
+                
+            });
+
+            //클릭한 썸네일 이미지로 메인 이미지 변경하는 함수
+            $('.thumnail img').click(function(){
+                $('.main_img').prop('src',$(this).attr('src')); 
+            });
+            //prop 실행되는 중인 속성 변경
+            //형식은 prop(바꿀 속성명,$(this)누른것의 src 속성으로 변경한다.) attr을 쓴것은 이미 설정된 썸네일 이미지의 src로 바꿀것이기 때문
+        });
+    </script>
+</head>
+<body>
+    <div class="thumnail_container">
+        <img src="img/1.jpg" class="main_img">
+        <div class="thumnail_bar">
+            <div class="thumnail">
+                <img src="img/1.jpg">
+                <img src="img/2.jpg">
+                <img src="img/3.jpg">
+                <img src="img/4.jpg">
+                <img src="img/5.jpg">
+                <img src="img/6.jpg">
+                <img src="img/7.jpg">
+                <img src="img/8.jpg">
+                <img src="img/9.jpg">
+            </div>
+        </div>
+        <a class="left_arrow"><img src="img/left_arrow.png"></a>
+        <a class="right_arrow"><img src="img/right_arrow.png"></a>
+    </div>
+</body>
+</html>

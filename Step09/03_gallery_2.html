@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        *{margin: 0px; padding: 0px;}
+
+        div{
+            border: 1px solid black;
+        }
+        .thumnail_container{
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+            position: relative;
+        }
+        .main_img{
+            width: 400px;
+            height: 400px;
+        }
+        .thumnail_bar{
+            width: 400px;
+            margin: 0px auto;
+            overflow: hidden;
+        }
+        .thumnail{
+            width: 720px;
+            font-size: 0px;
+        }
+        .thumnail img{
+            width: 100%;
+            height: 100%;
+        }
+        .thumnail li{
+            width: 80px;
+            height: 80px;
+            float: left;
+        }
+        .left_arrow{
+            position: absolute;
+            bottom: 6px;
+            left: 0px;
+        }
+        .right_arrow{
+            position: absolute;
+            bottom: 6px;
+            right: 0px;
+        }
+    </style>
+    <script>
+        $(function(){
+            $('.left_arrow').click(function(){
+                $('.thumnail li').first().animate({
+                    'margin-left':'-80px' 
+                },500,function(){
+                     $(this).appendTo('.thumnail').css('margin-left','0px');
+                });
+                //이렇게하면 이미지가 반만 이동한다. inline에 들어있는 이미지이기 때문에, block태그로 만들면 제대로 한칸씩 이동한다. -> <li>
+
+                //왼쪽으로 이동이 완료된 후 --> 초(500)옆에 붙여서 함수를 만든다. 그 안에 기능을 넣는다.
+                //1. 왼쪽으로 이동한 li를 .thumnail 맨 뒤로 이동 --> .appendTo()
+                //2. 이동한 li의 margin-left를 다시 0px로 변경, 안하면 80px의 margin-left가 남아있게됨 --> .css()사용
+            });
+            
+            $('.right_arrow').click(function(){
+                $('.thumnail li').last().css('margin-left','-80px').prependTo('.thumnail').animate({'margin-left':'0px'});
+
+                //1. li 맨 마지막 요소를 margin-left를 -80px 설정
+                //2. .thumnail 맨 앞으로 이동
+                //3. 이동한 li의 margin-left를 다시 0px로 변경 -->css와 animate 위치 변경
+            });
+
+            $('.thumnail img').click(function(){
+                $('.main_img').prop('src',$(this).attr('src')); 
+            });
+            
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="thumnail_container">
+        <img src="img/1.jpg" class="main_img">
+        <div class="thumnail_bar">
+            <ul class="thumnail">
+                <li><img src="img/1.jpg"></li>
+                <li><img src="img/2.jpg"></li>
+                <li><img src="img/3.jpg"></li>
+                <li><img src="img/4.jpg"></li>
+                <li><img src="img/5.jpg"></li>
+                <li><img src="img/6.jpg"></li>
+                <li><img src="img/7.jpg"></li>
+                <li><img src="img/8.jpg"></li>
+                <li><img src="img/9.jpg"></li>
+            </ul>
+        </div>
+        <a class="left_arrow"><img src="img/left_arrow.png"></a>
+        <a class="right_arrow"><img src="img/right_arrow.png"></a>
+    </div>
+</body>
+</html>

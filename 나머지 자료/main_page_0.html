@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        /* color: white; */
+      }
+      .flex_container{
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+      }
+      
+      .bx-wrapper{
+        margin:0 100px;
+        border: none;
+        box-shadow: none;
+      }
+      .bx-prev{
+        left: -40px !important;
+      }
+      .bx-next{
+        right: -40px !important;
+      }
+      header img{
+        height: 100px;
+      }
+    header input{
+        position: absolute;
+        margin-top: 50px;
+        right: 0;
+    }
+    footer{ 
+        width: 100%;
+        height: 100px;
+        /* background-color: white; */
+        background-color: black;
+        position: fixed ;
+        bottom: 0;
+        width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    footer a{
+        margin:0 100px;
+        padding: 10px;
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        width: 40px;
+        height: 40px;
+      }
+      .home, .new_end, .search, .my_page{
+        background-image: url(img/home.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+      }
+      .new_end{
+        background-image: url(img/video.png);
+      }
+      .search{
+        background-image: url(img/explore.png);
+      }
+      .my_page{
+        background-image: url(img/profile.png);
+      }
+      .top{
+        position: fixed;
+        width: 70px;
+        height: 70px;
+        background-image: url(img/up-arrow.png);
+        background-repeat: no-repeat;
+        bottom: 20px;
+        right: 200px;
+        border-radius: 100px;
+      }
+      .space{
+        width: 100%;
+        height: 100px;
+        position: absolute;
+      }
+      .zoom{
+        height: 40px;
+        width: 300px;
+        border: 1px solid rgb(91, 91, 91);
+        box-sizing: border-box;
+        outline: none;
+        background-image: url(img/zoom.png);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: 5px center;
+        padding-left: 43px;
+    }
+    article{
+        margin: 50px 0;
+        padding: 10px;
+    }
+    article > h1{
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #a7f2dc;
+    }
+   
+    .leftList{
+        float: left;
+    }
+
+    .up_downClass{
+        width: 30px; 
+        float: right;
+        padding: 10px 5px;
+    }
+    .up_downClass > .dislike{
+        padding-top: 7px;
+    }
+    .heart{
+        position: absolute;
+        right: 0;
+        width: 30px;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    /* .heart:hover{
+        background-image: url(img/heart-shape-silhouette.png);
+    } */
+    ul{
+        list-style: none;
+        color: white;
+    }
+    </style>
+    <script>
+       $(function(){
+        $('.best').bxSlider({
+          pager : false,
+          slideWidth : 500,
+          slideMargin: 20,
+          minSlides:3,
+          maxSlides:3,
+          moveSlides:1,
+          touchEnabled : false
+        });
+        $('.new_end_search').bxSlider({
+          pager : false,
+          slideWidth : 200,
+          slideMargin: 20,
+          minSlides:5,
+          maxSlides:5,
+          moveSlides:1,
+          touchEnabled : false
+        });
+      
+
+        // $("a").click(function(e){ //a태그 위로 이동 방지(임시) - #top을 위해 나중에 제거해야함
+        //     e.preventDefault();
+        // });
+
+
+        $('.heart').on({ //하트 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') === 'img/heart_full.png')
+                ? 'img/heart.png'
+                : 'img/heart_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+        $('.like').on({ //like 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/like_full.png')
+                ? 'img/like.png'
+                : 'img/like_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+        $('.dislike').on({ //dislike 이미지 변경
+        'click': function() {
+            var src = ($(this).attr('src') == 'img/dislike_full.png')
+                ? 'img/dislike.png'
+                : 'img/dislike_full.png';
+            $(this).attr('src', src);
+            }
+        });
+
+      });
+      </script> 
+</head>
+<body>
+    <div class="flex_container">
+        <header>
+            <img src="img/logo_white.png" alt="">
+            <input type="text" placeholder="검색" class="zoom">
+        </header>
+        <div class="main_container">
+        <section>
+            <article>
+            <h1>Best contents</h1>
+            <div class="thumnail best">
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster1.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div> 
+<!--  -->
+
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster2.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster3.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster4.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster5.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster6.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <img src="img/heart.png" alt="" class="heart">
+                            <img src="img/poster7.jpg" alt="" />
+                        </div>
+                        <div>
+                            <ul class="leftList">
+                                <li>리뷰1</li>
+                                <li>리뷰2</li>
+                            </ul>
+                            <a href="" class="up_downClass"><img src="img/dislike.png" alt="" class="dislike"></a>
+                            <a href="" class="up_downClass"><img src="img/like.png" alt="" class="like"></a>
+                        </div>
+                    </div>
+            </div>
+            </article>
+            <article>
+                <h1>New</h1>
+                <div class="thumnail new_end_search">
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster1.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster2.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster3.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster4.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster5.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster6.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster7.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster8.jpg" alt="" />
+                    </div>
+                </div>
+            </article>
+            <article>
+                <h1>Expire</h1>
+                <div class="thumnail new_end_search">
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster1.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster2.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster3.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster4.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster5.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster6.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster7.jpg" alt="" />
+                    </div>
+                    <div>
+                        <img src="img/heart.png" alt="" class="heart">
+                        <img src="img/poster8.jpg" alt="" />
+                    </div>
+            </article>
+            <a href="#top" class="top"></a>
+            <div class="space"></div>
+        </section>
+        </div>
+        <footer>
+            <a href="" class="home"></a>
+            <a href="" class="new_end"></a>
+            <a href="" class="search"></a>
+            <a href="" class="my_page"></a>
+        </footer>
+    </div>
+</body>
+</html> 

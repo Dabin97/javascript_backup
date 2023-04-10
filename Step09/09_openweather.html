@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+           //버튼 클릭했을때 서울 날씨 정보를 result에 출력
+           //현재 날씨, 현재온도, 최고온도, 최저온도, 바람세기
+           $('#request').click(function(){
+            let id = '1835848';
+            let appid = '77d627a35af25611188366c954675072';
+            $.ajax({        
+                url : `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${appid}`,
+                type : 'get',
+                    dataType : 'json', 
+                    success : function(r){
+                        console.log(JSON.stringify(r)); //json을 문자열로 바꿈 - JSON.stringify(r)
+                        console.log(r); //경로보기 - 오른쪽 클릭 copy property path
+                        let main = r.weather[0].main;
+                        let temp = r.main.temp - 273.15; //섭씨온도로 변경하는식
+                        let min_temp = r.main.temp_min - 273.15;
+                        let max_temp = r.main.temp_max - 273.15;
+                        let wind = r.wind.speed;
+
+                        $('#result').html(`<p>현재 날씨 : ${main}, 현재 온도 : ${temp.toFixed(2)}, 최저 온도: ${min_temp.toFixed(2)}, 최고 온도 : ${max_temp.toFixed(2)}, 바람 세기 ${wind}</p>`);
+                        //.toFixed(2) 소수점 2번째 자리까지만 
+                    }
+                }); 
+           });
+        });
+    </script>
+</head>
+<body>
+    <button id="request" aria-readonly="true">날씨 정보 요청</button>
+    <div id="result"></div>
+    <div id="openweathermap-widget-11"></div>
+<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1835848',appid: '77d627a35af25611188366c954675072',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+</body>
+</html>

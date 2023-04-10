@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <style>
+        body{
+            height: 8000px;
+        }
+        #pop{
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            position: fixed;
+            top : 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="pop"></div>
+    <script>
+       //body 태그 선택
+       let body = document.querySelector('body'); //querySelector는 한개만 읽어온다. querySelectorAll은 배열로 읽어옴
+       //pop도 선택
+       let pop = document.querySelector('#pop');
+
+        //이벤트가 객체 : 이벤트가 발생했을때 해당 이벤트에 관련된 정보
+        body.onclick = (e) => { //매개변수 e선언
+            // console.log(e); 누르는 곳의 body 정보를 알려줌
+            console.log(e.clientX, e.clientY); //클릭한 곳의 좌표값을 알려줌
+            pop.innerHTML = `<h2>${e.clientX},${e.clientY}</h2>`;
+            pop.style.left = e.clientX+"px"; //px이라고 안들어가면 박스가 움직이지않는다.
+            pop.style.top = e.clientY+"px";
+        }
+    </script>
+
+</body>
+</html>

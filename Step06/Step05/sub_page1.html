@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 3000px;
+        }
+        .flex_container {
+            width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .member_bar {
+            background-color: #e9e9e9;
+            padding-right: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .profile {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            background-image: url('img/icon.png');
+            background-repeat: no-repeat;
+            background-position: -96px 0px;
+        }
+
+        .info {
+            line-height: 24px;
+            padding-left: 5px;
+        }
+
+        .ad_img {
+            position: relative;
+            font-size: 0px;
+        }
+        .ad_img button{
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            border:none;
+            background-color:  rgba(255, 255, 255, 0.502);
+        }
+        .left_arrow {
+            background-image: url('img/icon.png');
+            background-repeat: no-repeat;
+            top : calc(50% - 24px);
+            left: 0px;
+        }
+        .right_arrow {
+            background-image: url('img/icon.png');
+            background-position: -48px;
+            background-repeat: no-repeat;
+            top : calc(50% - 24px);
+            right: 0px;
+        }
+        nav{
+            background-color: #e9e9e9;
+            position: relative;
+        }
+        .main_menu{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            list-style-type: none;
+        }
+        nav li a:link,nav li a:visited{
+            color : black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.3em;
+            display: inline-block;
+            width: 200px;
+            padding:20px 0px;
+            text-align: center;
+        }
+        nav li a:hover{
+            background-color: #b6b6b6;
+        }
+        .sub_menu_container{
+            width: 100%;
+            height: 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            background-color: #e9e9e97a;
+            overflow: hidden;
+            z-index: 1000;
+            position: absolute;
+            transition: 0.5s all;
+        }
+        .sub_menu{
+            width: 200px;
+            list-style-type: none;
+        }
+        section{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        article{
+            display: flex;
+            flex-flow: row nowrap;
+            padding:0px 30px;
+        }
+        article #map{
+            width: 700px;
+            height: 400px;
+            margin-right: 20px;
+        }
+        .content{
+            width: 500px;
+        }
+        footer{
+            background-color: #e9e9e9;
+            padding: 20px 50px;
+            margin-top: 20px;
+        }
+        footer ul{
+            list-style-type: none;
+        }
+        footer ul li{
+            margin-top: 10px;
+        }
+    </style>
+    <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de19950362558a9c45461c5730558269&libraries=services"></script>
+    <script>
+        window.onload = () => {
+            let nav = document.querySelector('nav');
+            let sub_menu_container = document.querySelector('.sub_menu_container');
+            let height = sub_menu_container.scrollHeight;
+
+            nav.onmouseenter = () => {
+                sub_menu_container.style.height = height +"px";
+            }
+            nav.onmouseleave = () => {
+                sub_menu_container.style.height = "0px";
+
+            }
+
+            var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+            var options = { //지도를 생성할 때 필요한 기본 옵션
+                center: new kakao.maps.LatLng(37.5449, 126.8397), //지도의 중심좌표.
+                level: 3 //지도의 레벨(확대, 축소 정도)
+            };
+
+            var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+        }
+    </script>
+</head>
+
+<body>
+    <div class="flex_container">
+        <header>
+            <div class="member_bar">
+                <div><a href="" class="profile"></a></div>
+                <div class="info">
+                    OOO님 로그인 하셨습니다.
+                    <br>
+                    로그아웃 | 정보수정
+                </div>
+            </div>
+            <div class="ad_img">
+                <button class="left_arrow"></button>
+                <button class="right_arrow"></button>
+                <img src="img/main_4.jpg">
+            </div>
+        </header>
+        <nav>
+            <ul class="main_menu">
+                <li><a href="">HOME</a></li>
+                <li><a href="">예약</a></li>
+                <li><a href="">펜션 스토리</a></li>
+                <li><a href="">펜션 소개</a></li>
+            </ul>
+            <div class="sub_menu_container">
+                <ul class="sub_menu"></ul>
+                <ul class="sub_menu">
+                    <li><a href="sub_page2.html">예약하기</a></li>
+                    <li><a href="#">예약조회</a></li>
+                    <li><a href="#">예약취소</a></li>
+                </ul>
+                <ul class="sub_menu">
+                    <li><a href="#">커뮤니티</a></li>
+                    <li><a href="#">갤러리</a></li>
+                    <li><a href="#">QnA</a></li>
+                </ul>
+                <ul class="sub_menu">
+                    <li><a href="sub_page1.html">오시는길</a></li>
+                    <li><a href="#">시설안내</a></li>
+                    <li><a href="#">SNS</a></li>
+                </ul>
+            </div>
+            
+        </nav>
+        <section>
+            <article>
+                <div id="map"></div>
+                <div class="content">
+                    <h2>오시는길</h2>
+                   <p>모든 국민은 직업선택의 자유를 가진다. 대법관의 임기는 6년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다. 헌법재판소 재판관은 정당에 가입하거나 정치에 관여할 수 없다.</p>
+                    <p>모든 국민은 주거의 자유를 침해받지 아니한다. 주거에 대한 압수나 수색을 할 때에는 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다. 군인은 현역을 면한 후가 아니면 국무위원으로 임명될 수 없다.</p>
+                </div>
+            </article>
+        </section>
+        <footer>
+            <ul>
+                <li>OOOO 펜션</li>
+                <li>대표자 : OOO</li>
+                <li>연락처 : 010-0000-0000</li>
+                <li>주소 : 강원도 평창시 OOOOOOO</li>
+            </ul>
+        </footer>
+    </div>
+</body>
+
+</html>

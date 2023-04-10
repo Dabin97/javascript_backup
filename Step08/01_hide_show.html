@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#hide').click(function(){
+                $('img').stop().hide(1000); //1000 = 1s, 1초
+            });
+            $('#show').click(function(){
+                $('img').stop().show(1000);
+            });
+            $('#toggle').click(function(){
+                $('img').stop().toggle(1000,function(){
+                    //콜백함수 --> 애니메이션이 종료 후 실행되는 함수
+                    console.log('애니메이션 종료');
+                }); 
+            });
+        });
+        //.stop() 애니메이션이 진행되던것을 멈추고 기능을 실행, 없으면 누른만큼 애니메이션이 혼자 움직임
+        //toggle(1000,function(){}); (듀레이션, 콜백함수) --> 애니메이션이 끝나야 콘솔로그가 나옴
+    </script>
+</head>
+<body>
+    <button id="hide">hide</button>
+    <button id="show">show</button>
+    <button id="toggle">toggle</button>
+    <hr>
+    <img src="img/tree.jpg" alt="">
+</body>
+</html>

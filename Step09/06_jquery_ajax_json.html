@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#time').html(new Date().toLocaleString());
+            $('#btn').click(function(){
+                let queryString = 'txt=' + $('#txt').val();
+                $.ajax({        //ajax함수 실행
+                    url : 'http://nam2626.dothome.co.kr/papago.php',
+                    data : queryString,
+                    type : 'get',
+                    dataType : 'json', //json, xml만 올수있다.
+                    success : function(result){
+                        //JSON으로 된 데이터를 받아서 접근
+                        console.log(result.message.result.translatedText); 
+                        console.log(result);
+                        $('#view').text(result.message.result.translatedText);
+                        /*
+                            JSON : js 객체 문법으로 구조화된 데이터를 표현하기위한 표준 데이터 포맷, 문자열 기반으로 되어있음
+                            (포맷이란 데이터를 위해 미리 설정되는 레이아웃으로서, 우리말로는 '형식'이라는 용어와 동일하게 쓰인다.)
+                        */
+                       //문자열을 JSON으로 파싱한 후 데이터 접근
+                    //    let r = JSON.parse(result);  //dataType : 'json',을 정해두면 이 3개의 코드를 거치지 않고 바로 json형식으로 받을수있다
+                    //    console.log(r);
+                    //    console.log(r.message.result.translatedText);
+                    }
+                }); 
+                
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="time"></div><!--실제 웹페이지가 로드된 시간-->
+    <textarea id="txt"></textarea><br>
+    <button id="btn">버튼</button>
+    <div id="view"></div>    
+</body>
+</html>

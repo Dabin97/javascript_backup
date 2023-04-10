@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{height: 6000px;}
+        #pop{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            top:100px;
+            left: 100px;
+            border:1px solid black;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            //스크롤바가 움직일때 발생하는 이벤트
+            $(window).scroll(function(){
+                $('#pop').text($(window).scrollTop()); //스크롤바 위치좌표 = 위에서부터 얼마나 떨어져있는가, Top=상하스크롤, left=좌우스크롤
+            });
+            //스크롤바 위치 변경
+            $(window).scrollTop(2000);
+        });
+    </script>
+</head>
+<body>
+    <div id="pop"></div>
+</body>
+</html>

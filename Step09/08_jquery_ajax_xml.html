@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('#time').html(new Date().toLocaleString());
+            $('#btn').click(function(){
+                $.ajax({        
+                    url : 'http://nam2626.dothome.co.kr/ajax_xml.php',
+                    type : 'get',
+                    dataType : 'text',
+                    success : function(r){
+                        // $('#view').text(r);
+                        let xmlParser = new DOMParser();
+                        let xmlDoc = xmlParser.parseFromString(r,'text/xml');
+
+                        let record = xmlDoc.querySelectorAll('record'); //root 태그부터 찾음
+                        console.log(record);                        
+                       
+                        for (let i = 0; i < record.length; i++) {
+                            let id = record[i].querySelector('id').innerHTML;                            
+                            let first_name = record[i].querySelector('first_name').innerHTML;
+                            let last_name = record[i].querySelector('last_name').innerHTML;
+                            let email = record[i].querySelector('email').innerHTML;
+                            let gender = record[i].querySelector('gender').innerHTML;
+                            let ip_address = record[i].querySelector('ip_address').innerHTML;
+                            $('#view').append(`<p>${id}, ${first_name}, ${last_name}, ${email}, ${gender}, ${ip_address}</p>`);
+                        }
+                        
+                    }
+                }); 
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="time"></div><!--실제 웹페이지가 로드된 시간-->
+    <button id="btn">버튼</button>
+    <div id="view"></div>  
+</body>
+</html>

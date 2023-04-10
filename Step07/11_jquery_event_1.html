@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <style>
+        div{
+            width: 300px;
+            height: 300px;
+            margin:100px;
+            border:1px solid #000000;
+            transition-property: all;
+            transition-duration: 1s;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+           $('#box1').mouseover(function(){
+                //배경색을 지정
+                $(this).css('background-color','skyblue');
+            });
+            //#box1에서 마우스가 벗어나면 배경색을 제거--> 'background'만
+            $('#box1').mouseout(function(){
+                $(this).css('background','none');
+            });
+            //$('#box1').mouseover(); //해당 이벤트를 실행
+
+            //.hover()는 hout이 따로 없고, 바로 옆에 또다른 function을 이어붙여 실행한다.
+            $('#box1').hover(function(){
+                $(this).css('background-color','skyblue');
+            },function(){
+                $(this).css('background','none');
+           }); 
+
+           //#box2를 클릭을 할 때마다 배경색을 랜덤하게 바꿈
+           $('#box2').click(function(){
+                let r = Math.floor(Math.random() * 256) ;
+                let g = Math.floor(Math.random() * 256) ;
+                let b = Math.floor(Math.random() * 256) ;
+                $(this).css('background-color',`rgb(${r},${g},${b})`); //각 r,g,b가 달라야 랜덤색이 나오므로 랜덤 변수를 3개 만들어야한다.
+           });
+        });
+    </script>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+</body>
+</html>

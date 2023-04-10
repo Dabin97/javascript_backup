@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            //선택자 사용방법 : $('선택자') --> 해당 html 요소들을 선택
+            //태그 선택자
+            console.log($('p'));
+
+            //jquery version
+            $('p').css('text-decoration','underline red').css
+            ('background-color','blue'); 
+            //css 변경하는 방법, 이렇게 하면 계속 값을 리턴하기 때문에 css를 추가하려면 옆에 .css하면 된다. 순차적으로 적용된다.
+
+            //js version
+            let p = document.querySelectorAll('p');
+            p.forEach(function(obj){
+                obj.style.textDecoration = 'underline red';
+                obj.style.backgroundColor = 'blue';
+            });
+
+            //h2 선택 - 글자색을 파랑색으로 변경
+            $('h2').css('color','blue');
+        });
+
+        //window.onload와 동일한 함수, 제이쿼리로 속성값 변경
+    </script>
+</head>
+<body>
+    <h2>제목</h2>
+    <p>내용</p>
+    <p>내용</p>
+    <p>내용</p>
+    <div>
+        <p>div 내부 내용</p>
+    </div>
+    <p>내용</p>
+    <p>내용</p>
+</body>
+</html>

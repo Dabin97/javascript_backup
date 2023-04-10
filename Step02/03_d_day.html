@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+    <script>
+        //오늘 날짜 기준으로 수능날까지의 D-Day 출력
+        let today = new Date();
+        let nday = new Date(2023,11,16);
+       
+        //밀리초*초*분*시간 ---> 1000*60*60*24 --> 하루에 해당하는 밀리초 값
+        let dd = nday.getTime()-today.getTime();
+        document.write(dd/(1000*60*60*24),"일");
+
+        let dday = new Date(2023,11,16);
+        let day = (dday.getTime() - today.getTime())/(1000*60*60*24);
+        let msg = `<p>2024년도 수능일까지 ${day} 남았습니다.</p>`;
+        document.write(msg);
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

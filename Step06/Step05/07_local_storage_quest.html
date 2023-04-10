@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>local storage</title>
+    <script src="local.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table{
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+        td{
+            border: 1px solid #000;
+            padding: 5px;
+        }
+        th{
+            border: 1px solid #000;
+            padding: 5px;
+            background-color: #ccc;
+        }
+        input{
+            width: 200px;
+            height: 30px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        button{
+            width: 100px;
+            height: 30px;
+            padding: 5px;
+            box-sizing: border-box;
+            vertical-align:middle;
+        }
+    </style>
+    <script>
+        function saveData(){
+            let key = document.querySelector("#key").value;
+            let val = document.querySelector("#text_save").value;
+            localStorage.setItem(key,val);
+            readAllData(); //읽어오기는 여기에 넣기
+        }
+        function readAllData(){
+            let content = '';
+            for(let i=0;i<localStorage.length;i++){
+                let key = localStorage.key(i);
+                let val = localStorage.getItem(key);
+                content += '<tr>';
+                content += `<td><input type="text" class="key" value='${key}' placeholder="키값"></td>`;
+                content += `<td><input type="text" class="data" value='${val}'  placeholder="저장값"></td>`;
+                content += '<td><input type="button" class="btn_remove" value="삭제"></td></tr>';
+            }
+            //테이블에 새로운 태그로 교체
+            document.querySelector('tbody').innerHTML = content;
+            //동적엘리먼트에 대한 클릭 이벤트 처리
+            document.querySelectorAll('.btn_remove').forEach(function(obj,idx){
+                obj.onclick = () => {
+                    //alert('삭제 경고창');
+                    //삭제 버튼 클릭을 했을 때 삭제할 데이터의 키값을 경고창으로 띄움
+                    //alert(document.querySelectorAll('.key')[idx].value); <--인덱스 번호를 이용한 방법
+                    //클릭한 버튼의 부모(td)의 부모(tr)에서 querySelector로 선택
+                    // alert(obj.parentNode.parentNode.querySelector('.key').value); <--권장
+                    //뽑은 키값으로 데이터 삭제
+                    localStorage.removeItem(obj.parentNode.parentNode.querySelector('.key').value);
+                    //다시 전체 데이터 읽기 작업
+                    readAllData;
+                }
+            });
+        }
+
+        window.onload = () =>{
+            let btn_save = document.querySelector('#btn_save');
+            btn_save.onclick = saveData;
+            readAllData();
+
+            document.querySelector('#btn_all_delete').onclick = () => {
+                localStorage.clear();
+                document.querySelector('tbody').innerHTML = '';
+            }//전체 삭제
+
+        }
+    </script>
+
+</head>
+<body>
+    
+    <h2>로컬 데이터 저장</h2>
+    <input type="text" id="key" placeholder="키값"><input type="text" id="text_save" placeholder="값"><button type="button" id="btn_save">저장</button>
+    <div class="container">
+        <!-- 키값 데이터 출력하는 테이블 thead, tbody 넣기-->
+        <table>
+            <thead>
+                <tr>
+                    <th>키값</th>
+                    <th>데이터</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="key" placeholder="키값"></td>
+                    <td><input type="text" class="data" placeholder="저장값"></td>
+                    <td><input type="button" class="btn_remove" value="삭제"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><input type="button" id="btn_all_delete" value="전체 삭제하기"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+</body>
+</html>

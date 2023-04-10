@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map{
+            height: 500px;
+        }
+    </style>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=aadbb8f33b4768959d313bdc9fa75cdc&libraries=services"></script>
+        <script>
+            window.onload = () => {
+                let btn = document.querySelector("#btn");
+                let address = document.querySelector("#address");
+                btn.onclick = () => {
+                    //주소를 보내서 GPS 좌표를 받음
+                    let geocoder = new kakao.maps.services.Geocoder();
+                    geocoder.addressSearch(address.value, function (result, status) {
+                        if (status == kakao.maps.services.Status.OK) {
+                            //result[0].address.x + ' ' + result[0].address.y;
+    
+                            // 마커가 표시될 위치입니다 
+                            var markerPosition = new kakao.maps.LatLng(result[0].address.y, result[0].address.x);
+    
+                            // 마커를 생성합니다
+                            var marker = new kakao.maps.Marker({
+                                position: markerPosition
+                            });
+
+                            // 마커가 지도 위에 표시되도록 설정합니다
+                            marker.setMap(map);
+    
+                            //인포윈도우 표시 위치입니다
+                            var iwContent = '<div style="padding:5px;">인포 윈도우 테스트</div>', 
+                                iwPosition = new kakao.maps.LatLng(result[0].address.y, result[0].address.x); 
+                            
+                            
+                            // 인포윈도우를 생성합니다
+                            var infowindow = new kakao.maps.InfoWindow({
+                                position: iwPosition,
+                                content: iwContent
+                            });
+    
+                            // 마커 위에 인포윈도우를 표시합니다.
+                            infowindow.open(map, marker);
+                            map.setCenter(markerPosition); //맵을 정중앙으로 위치시킬 좌표값
+    
+                        }
+                    });
+                }
+    
+                //지도 표시는  btn.onclick 밖에 쓴다.
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                    mapOption = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+    
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+            }
+        </script>
+    
+</head>
+
+<body>
+    <input type="text" id="address"><button id="btn">이동</button>
+    <div id="map"></div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <script>
+        window.onload = () => { // 모든지 이 안에서 실행해야함
+        //구글 링크를 클릭하면
+        //구글 페이지로 이동합니다 --> 경고창을 띄움
+        let google = document.querySelector("#google");
+        google.onclick = (e) => {
+            alert('구글 페이지로 이동합니다.');
+            //기존 태그에 적용된 이벤트 기능을 실행하지 않음
+            e.preventDefault();
+        }
+        //네이버 링크를 클릭하면
+        //네이버 페이지로 이동합니다 --> 경고창을 띄움
+        let naver = document.querySelector("#naver");
+        naver.onclick = () => {
+            alert('네이버 페이지로 이동합니다.');
+            //기존 태그에 적용된 이벤트 기능을 실행하지 않음2
+            return false;
+        }
+    }
+    </script>
+</head>
+<body>
+    <a href="https://www.google.com" id="google">구글로 이동</a><br>
+    <a href="https://www.naver.com" id="naver">네이버로 이동</a>
+</body>
+</html>

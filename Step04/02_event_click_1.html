@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <script>
+        //웹 문서를 전부 읽은 후에 실행되는 이벤트
+        window.onload = () => {
+            //아이디가 id,pass,btn인 태그를 선택
+            let id = document.querySelector('#id');//쿼리선택자
+            let pass = document.querySelector('#pass');
+            let btn = document.querySelector('#btn');
+            
+            console.log(id, pass, btn);
+            btn.onclick = () => { //함수열기 =>
+                //버튼을 클릭했을때 현재 id와 pass에 입력된 내용을 경고창으로 출력
+                // let msg = `${id.value},${pass.value}`;
+                //alert(msg);
+
+                //아이디와 암호는 6글자 미만으로 입력이 되면
+                //아이디와 암호는 6글자 이상입니다. 라는 경고창을 띄우기
+                if(id.value.length<6 || pass.value.length<6){
+                    alert('아이디와 암호는 6글자 이상입니다.');
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="id"><br> 
+    <input type="password" id="pass"><br> 
+    <button id="btn">로그인</button>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        *{margin: 0px; padding: 0px;}
+
+        .slide_container{
+            width: 1200px;
+            margin: 100px auto;
+            position: relative;
+            border: 1px solid black;
+            font-size: 0px;
+            overflow: hidden;
+        }
+        .slide_img_container{
+            width: 4800px;
+            display: inline-block;
+            list-style-type: none;
+        }
+        .slide_img_container li{
+            width: 1200px;
+            float: left;
+        }
+        .slide_container button{
+            position: absolute;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            top: 0px; /*위에 바짝 붙이기*/
+        }
+        .slide_container button:hover{
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .slide_container button:active{
+            background-color: rgba(255, 255, 255, 0);
+        }
+        .left_arrow{
+            left: 0px; /*button에 이미  position: absolute;가 적용되어있음*/
+        }
+        .right_arrow{
+            right: 0px;
+        }
+        .slide_nav_bar{
+            position: relative;
+            bottom: 0;
+        }
+        .radio_bar{
+            text-align: center;
+        }
+        .radio{
+            width: 25px;
+            height: 25px;
+            border-radius: 25px;
+            border: 3px solid grey;
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 5px 3px;
+            transition: 1s all;
+        }
+        .select{
+            background-color :grey;
+        }
+    </style>
+    <script>
+        $(function(){
+            let slideWidth =  $('.slide_img_container li').first().width(); // .first()를 빼면 화살표 width가 나옴.주의
+            let status = false;                                             //여러번 화살표를 누르면 작동이 먹히는 경우를 대비하기 위한 변수
+            //블릿문자 인덱스 번호
+            let bIdx = 0;
+            //왼쪽 화살표 클릭시 광고 이미지 이동 margin-left 0px -> -1200px
+            //왼쪽 화살표 클릭했을때 이미지가 이동하면 불릿문자도 한칸씩 오른쪽으로 이동, 마지막에서는 다시 맨 처음으로 순환
+            $('.left_arrow').click(function(){
+                if(status) return;
+                status = true;
+                $('.slide_img_container li').first().animate({
+                    'margin-left':`-${slideWidth}px` 
+                },1000,function(){
+                    $(this).appendTo('.slide_img_container').css('margin-left','0px');
+                    status = false;
+                });
+                //불릿 문자 처리
+                bIdx = ++bIdx % 4; //클릭할때마다 블릿문자 인덱스번호 증가, ++bIdx먼저 증가시키고 01234만 나오도록 %4
+                $(`.radio:eq(${bIdx})`).addClass('select').siblings().removeClass('select');
+            });
+
+            //오른쪽 화살표 클릭시 광고 이미지 이동 margin-left 1200px -> 0px    
+            $('.right_arrow').click(function(){
+                $('.slide_img_container li').last().css('margin-left',`-${slideWidth}px`).prependTo('.slide_img_container').animate({
+                    'margin-left':'0px'
+                },1000,function(){
+                        status = false;
+                });
+                bIdx--;
+                if(bIdx==-1) bIdx = 3;
+                $(`.radio:eq(${bIdx})`).addClass('select').siblings().removeClass('select');
+            });
+
+            
+            // $('.slide_nav_bar li').click(function(){
+            //     $('.slide_img_container img').prop('src',$(this).attr('src')); //에러:불릿문자로 이미지를 변경한후 화살표를 누르면 한개의 이미지만 고정됨
+            //     $(this).first().addClass('select').siblings().removeClass('select');
+            // });
+
+            //클릭이벤트 실행
+            $('.slide_img_container img').first().click();
+
+            //5초마다 오른쪽으로 썸네일 이미지를 자동으로 회전을 실행
+            //단 이미지를 클릭하거나, 화살표를 클릭하면 이미지 자동회전을 중지
+            //setInterval, clearInterval, 회전하는 함수
+            /*
+            let interval_id = setInterval(function(){
+                $('.thumnail li').first().animate({
+                    'margin-left':'-80px' 
+                },500,function(){
+                     $(this).appendTo('.thumnail').css('margin-left','0px');
+                     $('.main_img').prop('src',$('.thumnail li').first().children().attr('src')); 
+                     $('.thumnail li').first().css('opacity',1).siblings().css('opacity',0.5);
+                });
+            },5000);
+            //이동한 후에 작동해야하므로 ,500,function(){이 안에 기능을 넣는다}
+            //메인이미지가 바뀌는 함수에서 선택자만 변경하면 된다.
+            //$('.thumnail li').first().children() --> li태그 안의 img태그를 뜻한다.
+
+            */
+
+        });
+    </script>
+</head>
+<body>
+    <div class="slide_container">
+            <ul class="slide_img_container">
+                <li><img src="img/main_1.jpg"></li>
+                <li><img src="img/main_2.jpg"></li>
+                <li><img src="img/main_3.jpg"></li>
+                <li><img src="img/main_4.jpg"></li>
+            </ul>
+            <button class="left_arrow"><img src="img/left_arrow.png"></button>
+            <button class="right_arrow"><img src="img/right_arrow.png"></button>
+            <div class="slide_nav_bar">
+                <ul class="radio_bar">
+                    <li class="radio select"></li>
+                    <li class="radio"></li>
+                    <li class="radio"></li>
+                    <li class="radio"></li>
+                </ul>
+            </div>
+    </div>
+</body>
+</html>

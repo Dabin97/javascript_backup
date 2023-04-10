@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .container img{
+            width: 100%;
+        }
+        
+        .container{
+            width: 200px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            border: 1px solid black;
+            font-size: 0px;
+        }
+        #pop_nav {
+            background-color: gray;
+            padding: 4px 2px;
+            font-size: 16px; /*컨테이너에 0px로 여백을 없애고 안의 내용물에 따로 폰트사이즈를 지정해주기*/
+        }
+        .container a{
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+            text-decoration: none;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            font-size: 16px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function setCookie(name,value){ 
+            let date = new Date();//유효기간 설정할 날짜 객체
+            date.setTime(date.getTime() +  24 * 60 * 60 * 1000)//하루 증가한 쿠키 설정
+            document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+        }
+
+        function getCookie(name){
+            //name의 받아온 값에 해당하는 쿠키값을 리턴하는 함수
+            let allCookie = document.cookie;
+
+            //쿠키가 있는지?
+            if(allCookie != ''){
+                //쿠키가 있으면 쿠키를 배열로 만듬
+                let cookieArray = allCookie.split('; ');
+
+                for(let i=0;i<cookieArray.length;i++){
+                    let cookie = cookieArray[i].split('=');
+                    if(cookie[0] == name) //cookie[0]과 name이 같으면 값 = cookie[1] 을 리턴, ${name}=${value}; cookie[0]=cookie[1]
+                        return cookie[1];
+                }
+            }else{
+                console.log('쿠키가 없습니다.');
+            }
+        }
+
+        $(function(){
+            //최초 로드시 팝업 출력 여부를 보고 처리하는 것
+            $('.container').each(function(){
+                console.log($(this).find('.chk').val(), getCookie($(this).find('.chk').val())); //쿠키 유무 콘솔로그
+                if(getCookie($(this).find('.chk').val()) == 'Y') //getCookie($(this).find('.chk').val()) --> 쿠키 Y/N값
+                    $(this).hide();                              //체크박스가 체크된 쿠키가 있으면 컨테이너 하나를 hide한다.
+            });
+
+            $('.container a').click(function(){
+                $(this).parent().stop().hide(); //누른것만 = this, 감싸고있는것만 숨긴다 = .parent().stop().hide();
+            });
+
+            $('.chk').click(function(){
+                let val = $(this).val();
+                console.log($(this).prop('checked'),val);  //prop 프로퍼티, 실행중일땐 설정하는 값, attr대신 쓴다. attr로 뜨지않은건 설정헀을때 값을 읽어오기때문에 실행중인건 X
+                setCookie(val,$(this).prop('checked') ? 'Y' : 'N');
+            });
+        });
+
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        <a href="#">X</a> <img alt="" src="img/tree.jpg">
+        <div id="pop_nav"><input type="checkbox" class="chk" value="pop1"> 다시보지 않기</div>
+    </div>
+    <div class="container" style="top: 400px;">
+        <a href="#">X</a> <img alt="" src="img/tree.jpg">
+        <div id="pop_nav"><input type="checkbox" class="chk" value="pop2"> 다시보지 않기</div>
+    </div>
+    <div class="container" style="left: 400px;">
+        <a href="#">X</a> <img alt="" src="img/tree.jpg">
+        <div id="pop_nav"><input type="checkbox" class="chk" value="pop3"> 다시보지 않기</div>
+    </div>
+</body>
+</html>

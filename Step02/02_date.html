@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date</title>
+    <script>
+        //오늘 날짜정보 획득
+        let today = new Date();
+        document.write(today.toLocaleString(),"<br>");
+        document.write("년도 : ",today.getFullYear(),"<br>");
+        document.write("월 : ",today.getMonth(),"<br>"); //1월 = 0으로 나옴
+        document.write("일 : ",today.getDate(),"<br>");
+        document.write("요일 : ",today.getDay(),"<hr>"); //일요일 = 0
+        //날짜 정보 지정
+        let sunday = new Date(2023,0,15);
+        document.write(sunday.toLocaleString(),"<br>");
+        document.write("년도 : ",sunday.getFullYear(),"<br>");
+        document.write("월 : ",sunday.getMonth(),"<br>"); 
+        document.write("일 : ",sunday.getDate(),"<br>");
+        document.write("요일 : ",sunday.getDay(),"<hr>");
+
+        let tday = new Date(2023,0,21);
+        //밀리초*초*분*시간 ---> 1000*60*60*24 --> 하루에 해당하는 밀리초 값
+        document.write(tday.getTime(),"<br>");
+        let nday = new Date(2023,0,22);
+        document.write(nday.getTime(),"<br>");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

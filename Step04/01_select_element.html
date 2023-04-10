@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>select element</title>
+    <style>
+        p{
+            background-color: red;
+        }
+    </style>
+    <script>
+        //document.getElementById('아이디 속성값');
+        //document.getElementsByClassName('클래스 속성값'); Elements<--s가 붙은 여러개, 배열로 반환한다.
+        //document.getElementsByTagName('태그명'); --> 배열로 반환
+        //document.getElementsByName('name 속성값'); --> 배열로 반환
+
+        //현재 body 태그가 로드를 못했기 때문에 작성한 html에 접근 X 
+        // console.log(document.getElementById('txt'));
+        // document.getElementById('txt').value = '테스트'; 
+        
+    </script>
+</head>
+<body>
+    <!--'태그'로 선택하면 결과가 배열로 나옴/ '아이디'로 선택하면 단일객체, 변수 하나로만 선택됨-->
+    <input type="text" id="txt"><button>검색</button>
+    <hr>
+    <input type="text" name="t1" value="A"><br>
+    <input type="text" name="t2" value="B"><br>
+    <input type="text" name="t3" value="C"><br>
+    <input type="text" name="t4" value="D"><br>
+
+    <p>1</p>
+    <p>2</p>
+    <p><b>3</b></p>
+    <p>4</p>
+    <p>5</p>
+    <h1>제목 태그</h1>
+    <script>//body안에도 script를 쓸수있다.
+        //이 시점에서는 위에 작성한 html을 읽은 후에 스크립트가 실행, 따라서 html 정보가 있는 상태임
+        document.getElementById('txt').value = '테스트 값'; //.value 서버에 보내는 값
+        console.log(document.getElementById('txt').type) //콘솔창에 text라고 찍힘
+        console.log(document.getElementById('txt')) //<input type="text" id="txt">라고 찍힘
+
+       //태그명으로 선택
+        var p = document.getElementsByTagName('p');
+        console.log(p); //HTMLCollection(5) [p, p, p, p, p]라고 출력됨 / Element=Node
+        for (let i=0; i< p.length; i++){
+            console.log(p[i].innerHTML); //안에 있는 요소를 하나씩 다 뽑음
+        }
+        //선택된 p 태그에  순서대로 A,B,C,D,E 내용을 넣기
+        for (let i = 0; i < p.length; i++) {
+            p[i].innerHTML = String.fromCharCode(65+i); //for문을 돌떄마다 i++하므로 ABCDE로 바뀜
+        }
+        
+        //p태그에 적용된 CSS 배경색을 한번 접근
+        for (let i = 0; i < p.length; i++) {
+            p[i].style.backgroundColor='green';    
+        } 
+        //background-color 이 이름은 변수명으로 쓸수없다.'-'
+        //여기서 읽어올수있는 style은 <p style="background-color: red">이렇게 넣은것만 인식한다. 미리 넣은건 인식 X
+        //따로 넣을수는 있다. p[i].style.backgroundColor='green'; 
+    </script>
+</body>
+</html>

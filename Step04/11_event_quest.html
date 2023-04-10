@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <style>
+        #box{
+            width: 300px;
+            height: 300px;
+            background-image: url(img/non_check.png);
+            background-size: 100%;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            let box = document.querySelector('#box');
+            let flag = false; //눌렀을때 상태가 바뀐 변수 1개 필요
+            
+            box.onclick = () => {
+                flag = !flag; //누르면 false --> true
+                if(flag) //flag가 true이면
+                    box.style.backgroundImage = 'URL(img/check.png)'; //이미지 변경
+                else
+                    box.style.backgroundImage = 'URL(img/non_check.png)'; //아니면 원래 이미지로
+            } 
+           
+       }
+
+    </script>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>

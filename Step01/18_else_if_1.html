@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if문</title>
+    <script>
+        //점수 5개 입력받아서 입력한 점수들의 평균을 구함
+        let avg = 0;
+        for(i=0;i<5;i++){
+            avg += Number(prompt('점수를 입력하세요','0'));
+        }
+        avg /= 5;
+        //평균에 따른 성적 등급을 출력
+        console.log(avg);
+        let grade = 'F';
+        if(avg>=90) {
+            grade = 'A';
+		}else if(avg>=80) {
+            grade = 'B';
+		}else if(avg>=70) {
+            grade = 'C';
+		}else if(avg>=60) {
+            grade = 'D';
+		}
+        document.write(`성적 등급 : ${grade}`);
+
+
+
+        // switch(avg){
+        //     case 20: case 19 :
+        //         document.write("A+");
+        //         break;
+        //     case 18:
+        //         document.write("A");
+        //         break;
+        //     case 17:
+        //         document.write("B+");
+        //         break;
+        //     case 16:
+        //         document.write("B");
+        //         break;
+        //     case 15:
+        //         document.write("C+");
+        //         break;
+        //     case 14:
+        //         document.write("C");
+        //         break;
+        //     case 13:
+        //         document.write("D+");
+        //         break;
+        //     case 12:
+        //         document.write("D");
+        //         break;
+        //     default:
+        //         document.write("F");
+        // }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

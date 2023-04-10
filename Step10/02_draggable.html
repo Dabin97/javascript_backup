@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="lib/jquery-ui.css">
+  <link rel="stylesheet" href="lib/jquery-ui.theme.css">
+  <style>
+    #draggable { width: 150px; height: 150px; padding: 0.5em; background-color: mediumaquamarine;}
+    .popup{
+        width: 200px;
+        height: 500px;
+        border: 1px solid black;
+    }
+  </style>
+  <script src="lib/jquery.js"></script>
+  <script src="lib/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+    $( ".popup" ).draggable();
+  } );
+  </script>
+</head>
+<body>
+ 
+<div id="draggable" class="ui-widget-content">
+  <p>Drag me around</p>
+</div>
+ <div class="popup">
+    팝업창
+ </div>
+ 
+</body>
+</html>

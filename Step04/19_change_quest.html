@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>event</title>
+    <script>
+        window.onload = () => {
+            let host = document.querySelector('#host');
+            let email = document.querySelector('#email');
+            let area = document.querySelector('#area');
+
+            host.onchange = function(){ 
+                if(host.value==4){
+                    area.innerHTML = '<input type="text" id="dhost">'; //2. 태그를 넣을때는 .innerHTML을 사용한다.
+                    //아래도 인풋박스를 만드는 다른 방법임, id와 type을 다 지정해주어야해서 위의 방법이 더 간편하다.
+                    // let input = document.createElement('input');
+                    // input.id = 'dhost';
+                    // input.type = 'text';
+                    // area.appendChild(input)
+                }else{
+                    area.innerHTML = '';
+                }
+            }
+           
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="email">@
+    <select id="host">
+        <option value="0">gmail.com</option>
+        <option value="1">naver.com</option>
+        <option value="2">hanmail.net</option>
+        <option value="3">nate.com</option>
+        <option value="4">직접입력</option>
+    </select>
+    <span id="area"></span><!--1. 먼저 들어갈 공간을 만들어 주고-->
+</body>
+</html>

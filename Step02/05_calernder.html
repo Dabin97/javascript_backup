@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
+    <script>
+     //현재 날짜 하나 생성
+        let today = new Date();
+     //테이블 요일까지 태그 생성
+        let tag = `<h2>${today.getMonth()+1}월</h2>`;
+        tag += `<table>
+                    <tr>
+                        <th>일</th>
+                        <th>월</th>
+                        <th>화</th>
+                        <th>수</th>
+                        <th>목</th>
+                        <th>금</th>
+                        <th>토</th>    
+                    </tr>`
+     ///현재 월의 첫번째 날짜를 구해야함
+     let startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        //현재 월의 마지막 날짜를 구해야함
+        let endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        console.log(startDate.toLocaleString(), endDate.toLocaleString());
+        //달력상으로 첫번째칸 날짜 - startDate 일, startDate 요일값
+        startDate.setDate(startDate.getDate() - startDate.getDay());
+        //달력상으로 마지막칸 날짜 - endDate 일, endDate의 요일값, 일요일 요일값(6)
+        endDate.setDate(endDate.getDate() + 6 - endDate.getDay());
+        console.log(startDate.toLocaleString(), endDate.toLocaleString());
+
+        //달력이 몇 줄짜리인지 구함
+        let line = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7);
+        console.log(line);
+        //달력 날짜 생성해서 표로 완성
+        for (i = 0; i < line; i++) {
+            tag += '<tr>';
+            for (j = 0; j < 7; j++) {
+                //현재 월과 출력되는 날짜의 월이 다르면 disable 클래스를 적용
+                if(today.getMonth()  == startDate.getMonth()){
+                    tag += `<td>${startDate.getDate()}</td>`;
+                }else{
+                    tag += `<td class="disable">${startDate.getDate()}</td>`;
+                }
+                startDate.setDate(startDate.getDate() + 1);
+            }
+            tag += '</tr>';
+        }
+        tag += '</table>';
+
+        document.write(tag);
+
+    </script>
+    <style>
+        h2{
+            text-align: center;
+        }
+        table{
+            border-collapse: collapse;
+            margin:0 auto;
+        }
+        td,th{
+            width: 100px;
+            border:1px solid black;
+            padding: 10px;
+        }
+        td{
+            height: 100px;
+            text-align: right;
+            vertical-align: top;
+        }
+        td:nth-child(7n),th:nth-child(7n){
+            color:blue;
+        }
+        td:nth-child(7n+1),th:nth-child(7n+1){
+            color:red;
+        }
+        .disable{
+            color:gray !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- <table>
+                    <caption><h2>1월</h2></caption>
+                    <tr>
+                        <th>일</th>
+                        <th>월</th>
+                        <th>화</th>
+                        <th>수</th>
+                        <th>목</th>
+                        <th>금</th>
+                        <th>토</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>14</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>20</td>
+                        <td>21</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                        <td class="disable">1</td>
+                        <td class="disable">2</td>
+                        <td class="disable">3</td>
+                        <td class="disable">4</td>
+                    </tr>
+    </table> -->
+</body>
+</html>

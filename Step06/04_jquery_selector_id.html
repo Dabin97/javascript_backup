@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+       $(function(){
+            //버튼태그 선택, 클릭 이벤트 설정(일관적으로 똑같은 이벤트를 넣어줄수있다.)
+            $('button').click(function(){
+                //아이디 선택 아이디에 입력된 값을 읽어옴
+                console.log($('#id').val());
+                //아이디와 암호에 입력된 값을 읽어와서
+                //콘솔에 '입력하신 아이디는 아이디값, 입력하신 암호는 암호값'
+                let id = $('#id').val();
+                let password = $('#password').val();
+                let msg = `입력하신 아이디는 ${id}, 입력하신 암호는 ${password}`;
+                console.log(msg);
+                // result.innerHTML = msg; 
+                // innerHTML 대체하는 힘수
+                $('#result').html(msg);
+                
+            });
+       });
+    </script>
+</head>
+<body>
+    <input type="text" id="id"> <input type="password" id="password">
+    <button>로그인</button>
+    <hr>
+    <div id="result"></div> 
+</body>
+</html>

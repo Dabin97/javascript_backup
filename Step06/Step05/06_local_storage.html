@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로컬 스토리지</title>
+    <script>
+        function saveData(){
+            //로컬 스토리지에 데이터 저장
+            localStorage.setItem('key1','data1');
+            localStorage.setItem('key2','data2');
+            localStorage.setItem('key3','data3');
+            localStorage.setItem('key4','data4');
+        }
+
+        function loadData(){
+            let view = document.querySelector('#view');
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                let val = localStorage.getItem(key);
+                let p = document.createElement('p'); //태그네임 p
+                p.textContent = `${key} - ${val}`;
+                view.appendChild(p);
+            }
+        }
+        
+        function deleteData(){
+            localStorage.removeItem('key1');
+        }
+
+        function clearDate(){
+            localStorage.clear(); //전체 삭제
+        }
+
+        window.onload = () => {
+            let save = document.querySelector('#save');
+            let load = document.querySelector('#load');
+            let del = document.querySelector('#delete');
+            let clear = document.querySelector('#clear');
+
+            save.onclick = saveData;
+            load.onclick = loadData;
+            del.onclick = deleteData;
+            clear.onclick = clearDate;
+        }
+    </script>
+</head>
+<body>
+    <button type="button" id="save">데이터 저장</button>
+    <button type="button" id="load">데이터 읽어오기</button>
+    <button type="button" id="delete">데이터 삭제</button>
+    <button type="button" id="clear">데이터 전체 삭제</button>
+    <hr>
+    <div id="view"></div>
+</body>
+</html>

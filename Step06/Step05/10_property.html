@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="id" value="아이디값"> <button>확인</button>
+    <hr>
+    <div id="area"></div>
+    <script>
+        let id = document.querySelector('#id');
+        let button = document.querySelector('button');
+        let area = document.querySelector('#area');
+
+        button.addEventListener('click',function(){ //이벤트 처리 작업
+            area.innerHTML = id.value;
+        });
+    </script>
+</body>
+</html>
+<!-- attributes는 HTML 마크업에 정의되어 있는 것이고, 
+    properties는 HTML DOM 트리에 있는 것이다. <- 자바스크립트로 제어하는 것
+    즉, attribute는 default 값이 변하지 않으며 property는 변할 수 있다.-->

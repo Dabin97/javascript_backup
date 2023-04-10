@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json_table</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        table{
+            border-collapse: collapse;
+            width: 1200px;
+            margin: 0 auto;
+        }
+        th,td{
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th{
+            background-color: #cecece;
+        }
+        tbody > tr:hover{
+            background-color: wheat;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $('button').click(function(){
+                let tag = '';
+                $(this).prevAll().each(function(){
+                    // console.log($(this).val());콘솔로그로 값 미리 체크하기
+                    tag = `<td>${$(this).val()}</td>` + tag;
+                });
+                tag = `<tr>${tag}</tr>`;
+                // $('tbody').append(tag);
+                //동적엘리먼트 추가 후 이벤트 처리도 추가 해야됨
+                $(tag).appendTo('tbody').click(function(){
+                    if(confirm('해당 데이터를 삭제 할까요?'))
+                        $(this).remove();
+                });
+            });
+                //.prevAll() --> 선택한 요소의 이전 모든 형제 요소를 선택합니다.
+
+                /* 내가 한 것
+                let name = $('#name').val();
+                let age = $('#age').val();
+                let gender = $('#gender').val();
+                let email = $('#email').val();
+                let address = $('#address').val();
+
+                $('table').append(`<tr><td>${name}</td><td>${age}</td><td>${gender}</td><td>${email}</td><td>${address}</td></tr>`);
+                */
+
+            //데이터 한건 클릭하면 해당 행을 지울것인지 사용자로부터 확인 받은후(comfirm) 확인을 눌렀을때 해당 데이터를 삭제
+            $('tbody td').click(function(){
+                if(confirm('해당 데이터를 삭제하시겠습니까?'))
+                    $(this).parent.remove();
+            });
+            var flag = true;
+            $('.order').click(function(){
+                flag = !flag;
+                if(flag)
+                    order_desc();
+                else
+                    order_asc();
+            });
+        });
+
+            //표에서 나이를 클릭하면 현재 테이블에 저장된 모든 데이터의 나이를 숫자로 변경해서 뽑음(정렬전 준비단계)
+            //Number($(this).children().eq(1).text()) <-- 2번째 td선택 == .children().eq(1)
+            //내림차순 정렬하는 함수도 작성, 나이를 클릭할때마다 오름차순 -> 내림차순 -> 오름차순..
+            
+
+        //삽입정렬(데이터가 들어오면 앞의 데이터와 비교함) 오름차순 정렬
+        function order_asc(){ 
+            //정렬된 각 행의 정보를 저장
+            let arr = new Array();
+
+            $('tbody  > tr').each(function(){
+                //Number($(this).children().eq(1).text())
+                arr.push($(this)); //.push() 맨 뒤에 데이터를 넣는것
+                //마지막 인덱스 번호 선택(0번째까지 가도 비교할게 없으므로 1번까지만 가기, 그래서 -1)
+                let i = arr.length - 1;
+                while (i > 0) {
+                    //i에 해당하는 나이값과 i-1(이전에 있는 값)에 해당하는 나이값을 뽑아서 
+                    //i번째에 해당하는 나이값이 작으면 i번째와 i-1번째를 바꿈 (임시변수tmp를 이용하기)
+                    let current = Number($(arr[i]).children().eq(1).text());
+                    let preve = Number($(arr[i-1]).children().eq(1).text());
+                    
+                    if(current < preve){
+                        let temp = arr[i];
+                        arr[i] = arr[i-1];
+                        arr[i-1] = temp;
+                    }else{
+                        break; //계속 반복되면서 찾는걸 멈춰준다.
+                    }
+                    i--;
+                }
+            });
+            //정렬된 데이터를 적용
+            $('tbody').html(''); //싹 내용을 비우고
+            $(arr).each(function(){
+                $('tbody').append($(this)); //새로 교체한다. 원본것을 가지고있기때문에 이벤트에는 문제가 생기지않는다.
+            });
+            $('tbody td').click(function(){
+                if(confirm('해당 데이터를 삭제 할까요?'))
+                    $(this).parent().remove();
+            });
+        }
+
+        //내림차순 정렬
+        function order_desc(){ 
+            //정렬된 각 행의 정보를 저장
+            let arr = new Array();
+
+            $('tbody  > tr').each(function(){
+                //Number($(this).children().eq(1).text())
+                arr.push($(this)); //.push() 맨 뒤에 데이터를 넣는것
+                //마지막 인덱스 번호 선택(0번째까지 가도 비교할게 없으므로 1번까지만 가기, 그래서 -1)
+                let i = arr.length - 1;
+                while (i > 0) {
+                    //i에 해당하는 나이값과 i-1(이전에 있는 값)에 해당하는 나이값을 뽑아서 
+                    //i번째에 해당하는 나이값이 작으면 i번째와 i-1번째를 바꿈 (임시변수tmp를 이용하기)
+                    let current = Number($(arr[i]).children().eq(1).text());
+                    let preve = Number($(arr[i-1]).children().eq(1).text());
+                    
+                    if(current > preve){
+                        let temp = arr[i];
+                        arr[i] = arr[i-1];
+                        arr[i-1] = temp;
+                    }else{
+                        break; //계속 반복되면서 찾는걸 멈춰준다.
+                    }
+                    i--;
+                }
+            });
+            //정렬된 데이터를 적용
+            $('tbody').html(''); //싹 내용을 비우고
+            $(arr).each(function(){
+                $('tbody').append($(this)); //새로 교체한다. 원본것을 가지고있기때문에 이벤트에는 문제가 생기지않는다.
+            });
+            $('tbody td').click(function(){
+                if(confirm('해당 데이터를 삭제 할까요?'))
+                    $(this).parent().remove();
+            });
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <thead>
+            <td colspan="5">
+                <input type="text" placeholder="이름 입력" id="name">
+        <input type="text" placeholder="나이 입력" id="age">
+        <select id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <input type="text" placeholder="이메일 입력" id="email">
+        <input type="text" placeholder="거주지역" id="address">
+        <button>입력</button>
+            </td>
+            <tr>
+                <th>이름</th>
+                <th class="order">나이</th>
+                <th>성별</th>
+                <th>email</th>
+                <th>거주지역</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Gilles Kirkebye</td>
+                <td>56</td>
+                <td>Male</td>
+                <td>gkirkebye0@wikispaces.com</td>
+                <td>Tagta</td>
+            </tr>
+            <tr>
+                <td>Darcie Sibbering</td>
+                <td>56</td>
+                <td>Female</td>
+                <td>dsibbering1@amazon.de</td>
+                <td>Halayhayin</td>
+            </tr>
+            <tr>
+                <td>Heinrik Mackison</td>
+                <td>21</td>
+                <td>Male</td>
+                <td>hmackison2@ftc.gov</td>
+                <td>Leuwibuleud</td>
+            </tr>
+            <tr>
+                <td>Emory McIndoe</td>
+                <td>60</td>
+                <td>Male</td>
+                <td>emcindoe3@so-net.ne.jp</td>
+                <td>Troitsk</td>
+            </tr>
+            <tr>
+                <td>Vaclav Juschke</td>
+                <td>31</td>
+                <td>Male</td>
+                <td>vjuschke4@jiathis.com</td>
+                <td>Gavinhos de Baixo</td>
+            </tr>
+            <tr>
+                <td>Corrianne Grindlay</td>
+                <td>43</td>
+                <td>Female</td>
+                <td>cgrindlay5@ca.gov</td>
+                <td>Dupi</td>
+            </tr>
+            <tr>
+                <td>Ambrosio Chastney</td>
+                <td>48</td>
+                <td>Agender</td>
+                <td>achastney6@ft.com</td>
+                <td>Fengshan</td>
+            </tr>
+            <tr>
+                <td>Heda Rudham</td>
+                <td>39</td>
+                <td>Female</td>
+                <td>hrudham7@alexa.com</td>
+                <td>Cidahu</td>
+            </tr>
+            <tr>
+                <td>Ely Creech</td>
+                <td>17</td>
+                <td>Male</td>
+                <td>ecreech8@so-net.ne.jp</td>
+                <td>Corozal</td>
+            </tr>
+            <tr>
+                <td>Dorette Ormerod</td>
+                <td>34</td>
+                <td>Female</td>
+                <td>dormerod9@unicef.org</td>
+                <td>Bom Conselho</td>
+            </tr>
+            <tr>
+                <td>Sophie Losbie</td>
+                <td>42</td>
+                <td>Female</td>
+                <td>slosbiea@bbb.org</td>
+                <td>Al Jadīd</td>
+            </tr>
+            <tr>
+                <td>Manuel Batty</td>
+                <td>54</td>
+                <td>Male</td>
+                <td>mbattyb@studiopress.com</td>
+                <td>Lelkowo</td>
+            </tr>
+            <tr>
+                <td>Erminia Badwick</td>
+                <td>12</td>
+                <td>Female</td>
+                <td>ebadwickc@kickstarter.com</td>
+                <td>Shal’skiy</td>
+            </tr>
+            <tr>
+                <td>Ebonee Munt</td>
+                <td>50</td>
+                <td>Female</td>
+                <td>emuntd@who.int</td>
+                <td>Brčko</td>
+            </tr>
+            <tr>
+                <td>Nichole Mercik</td>
+                <td>11</td>
+                <td>Female</td>
+                <td>nmercike@360.cn</td>
+                <td>Wonodadi</td>
+            </tr>
+            <tr>
+                <td>Avery Fowlds</td>
+                <td>35</td>
+                <td>Male</td>
+                <td>afowldsf@sciencedaily.com</td>
+                <td>Huangdimiao</td>
+            </tr>
+            <tr>
+                <td>Fabian Domanski</td>
+                <td>49</td>
+                <td>Male</td>
+                <td>fdomanskig@statcounter.com</td>
+                <td>Houping</td>
+            </tr>
+            <tr>
+                <td>Terrill Brouncker</td>
+                <td>15</td>
+                <td>Male</td>
+                <td>tbrounckerh@clickbank.net</td>
+                <td>Melaka</td>
+            </tr>
+            <tr>
+                <td>Briney Huffadine</td>
+                <td>50</td>
+                <td>Female</td>
+                <td>bhuffadinei@time.com</td>
+                <td>Duas Igrejas</td>
+            </tr>
+            <tr>
+                <td>Cam Gyenes</td>
+                <td>49</td>
+                <td>Female</td>
+                <td>cgyenesj@jiathis.com</td>
+                <td>Priargunsk</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
